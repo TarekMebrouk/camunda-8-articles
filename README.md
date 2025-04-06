@@ -46,6 +46,19 @@ This branch includes all the resources related to the article “🚀Automating 
 - Connector environment configuration (input mappings, headers, etc.)
 - Example payloads and responses
 
+### Configuring the PetFinder API for the Pawdopt Process
+
+In order for the **Pawdopt** process (a mini animal adoption process) to work in your environment, you need to generate an API key by following the steps on the official PetFinder API website: [https://www.petfinder.com/developers](https://www.petfinder.com/developers).
+
+Once you have obtained your **API Key** and **Secret**, you must add them to the `connector-secrets.txt` file located in the Camunda Docker Compose installation folder. The file should have the following structure :
+
+```
+PETFINDER_API_KEY=your_api_key
+PETFINDER_SECRET=your_secret
+```
+
+Make sure to replace `your_API_key` and `your_secret` with the credentials you received from PetFinder.
+
 ## 🎯 Purpose
 This repository serves as:
 - A central space for sharing Camunda 8 article resources
