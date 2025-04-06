@@ -1,0 +1,143 @@
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.6.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "f2b6433"
+  },
+  "schemaVersion": 18,
+  "id": "Form_AnimalPreferences",
+  "components": [
+    {
+      "text": "### Animal Preference Selection 🐾",
+      "type": "text",
+      "layout": {
+        "row": "Row_0a11crz",
+        "columns": null
+      },
+      "id": "Field_1hkyg11"
+    },
+    {
+      "text": "#### Find my perfect match! 🐶🐱",
+      "type": "text",
+      "layout": {
+        "row": "Row_1w3jy51",
+        "columns": null
+      },
+      "id": "Field_00hlxw8"
+    },
+    {
+      "label": "Animal Type",
+      "values": [
+        {
+          "label": "Dog",
+          "value": "Dog"
+        },
+        {
+          "label": "Cat",
+          "value": "Cat"
+        },
+        {
+          "label": "Rabbit",
+          "value": "Rabbit"
+        },
+        {
+          "label": "Bird",
+          "value": "Bird"
+        }
+      ],
+      "type": "select",
+      "layout": {
+        "row": "Row_15scxuv",
+        "columns": null
+      },
+      "id": "Field_0zs1ktl",
+      "key": "preferences.type",
+      "validate": {
+        "required": false
+      }
+    },
+    {
+      "label": "Gender",
+      "values": [
+        {
+          "label": "Male",
+          "value": "Male"
+        },
+        {
+          "label": "Female",
+          "value": "Female"
+        }
+      ],
+      "type": "select",
+      "layout": {
+        "row": "Row_0k6fonx",
+        "columns": null
+      },
+      "id": "Field_19a5rrn",
+      "key": "preferences.gender",
+      "validate": {
+        "required": false
+      }
+    },
+    {
+      "label": "Preferred Age",
+      "values": [
+        {
+          "label": "Baby",
+          "value": "Baby"
+        },
+        {
+          "label": "Young",
+          "value": "Young"
+        },
+        {
+          "label": "Adult",
+          "value": "Adult"
+        },
+        {
+          "label": "Senior",
+          "value": "Senior"
+        }
+      ],
+      "type": "select",
+      "layout": {
+        "row": "Row_0k6fonx",
+        "columns": null
+      },
+      "id": "Field_06x9obu",
+      "key": "preferences.age",
+      "validate": {
+        "required": false
+      }
+    },
+    {
+      "label": "Preferred Size",
+      "values": [
+        {
+          "label": "Small",
+          "value": "Small"
+        },
+        {
+          "label": "Medium",
+          "value": "Medium"
+        },
+        {
+          "label": "Large",
+          "value": "Large"
+        }
+      ],
+      "type": "select",
+      "layout": {
+        "row": "Row_11njlef",
+        "columns": null
+      },
+      "id": "Field_0tpy68z",
+      "key": "preferences.size",
+      "validate": {
+        "required": false
+      }
+    }
+  ],
+  "type": "default"
+}

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="f2b6433" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.6.0">
+  <bpmn:error id="Error_187dn6m" name="UNAVAILABLE_ANIMAL" errorCode="UNAVAILABLE_ANIMAL" />
+  <bpmn:collaboration id="Collaboration_09uw0i0">
+    <bpmn:participant id="Participant" name="Animal Adoption" processRef="Process_Pawdopt" />
+    <bpmn:textAnnotation id="TextAnnotation_0yldceh">
+      <bpmn:text>save user preferences to get animals</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="TextAnnotation_09mb3xf">
+      <bpmn:text>Animal unavailable for adoption</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0f0rt3r" associationDirection="None" sourceRef="Event_12yizcy" targetRef="TextAnnotation_09mb3xf" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_Pawdopt" name="Pawdopt" isExecutable="true">
+    <bpmn:laneSet id="LaneSet_0e0uddw" />
+    <bpmn:sequenceFlow id="Flow_1w4eahg" sourceRef="StartEvent_1" targetRef="Activity_1szgjrr" />
+    <bpmn:sequenceFlow id="Flow_0roub1r" name="" sourceRef="Event_12yizcy" targetRef="Gateway_1m63vtb" />
+    <bpmn:sequenceFlow id="Flow_1bb76du" sourceRef="Activity_1szgjrr" targetRef="Gateway_1m63vtb" />
+    <bpmn:sequenceFlow id="Flow_15h6bv5" sourceRef="Gateway_1m63vtb" targetRef="Activity_1duannr" />
+    <bpmn:sequenceFlow id="Flow_0cvjuug" sourceRef="Activity_1duannr" targetRef="Activity_1iqmug3" />
+    <bpmn:sequenceFlow id="Flow_10ersut" sourceRef="Activity_1iqmug3" targetRef="Event_0v4iw01" />
+    <bpmn:boundaryEvent id="Event_12yizcy" attachedToRef="Activity_1iqmug3">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:output source="=true" target="unavailable" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_0roub1r</bpmn:outgoing>
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_07kjr4e" errorRef="Error_187dn6m" />
+    </bpmn:boundaryEvent>
+    <bpmn:startEvent id="StartEvent_1" name="adoption request received">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formId="Form_AnimalPreferences" />
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_1w4eahg</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="Activity_1szgjrr" name="Get animals by preferences" zeebe:modelerTemplate="io.camunda.connectors.HttpJson.v2" zeebe:modelerTemplateVersion="10" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE3LjAzMzUgOC45OTk5N0MxNy4wMzM1IDEzLjQ0NzUgMTMuNDI4MSAxNy4wNTI5IDguOTgwNjUgMTcuMDUyOUM0LjUzMzE2IDE3LjA1MjkgMC45Mjc3NjUgMTMuNDQ3NSAwLjkyNzc2NSA4Ljk5OTk3QzAuOTI3NzY1IDQuNTUyNDggNC41MzMxNiAwLjk0NzA4MyA4Ljk4MDY1IDAuOTQ3MDgzQzEzLjQyODEgMC45NDcwODMgMTcuMDMzNSA0LjU1MjQ4IDE3LjAzMzUgOC45OTk5N1oiIGZpbGw9IiM1MDU1NjIiLz4KPHBhdGggZD0iTTQuOTMxMjYgMTQuMTU3MUw2Ljc4MTA2IDMuNzE0NzFIMTAuMTM3NUMxMS4xOTE3IDMuNzE0NzEgMTEuOTgyNCAzLjk4MzIzIDEyLjUwOTUgNC41MjAyN0MxMy4wNDY1IDUuMDQ3MzYgMTMuMzE1IDUuNzMzNTggMTMuMzE1IDYuNTc4OTJDMTMuMzE1IDcuNDQ0MTQgMTMuMDcxNCA4LjE1NTIyIDEyLjU4NDEgOC43MTIxNUMxMi4xMDY3IDkuMjU5MTMgMTEuNDU1MyA5LjYzNzA1IDEwLjYyOTggOS44NDU5TDEyLjA2MTkgMTQuMTU3MUgxMC4zMzE1TDkuMDMzNjQgMTAuMDI0OUg3LjI0MzUxTDYuNTEyNTQgMTQuMTU3MUg0LjkzMTI2Wk03LjQ5NzExIDguNTkyODFIOS4yNDI0OEM5Ljk5ODMyIDguNTkyODEgMTAuNTkwMSA4LjQyMzc0IDExLjAxNzcgOC4wODU2MUMxMS40NTUzIDcuNzM3NTMgMTEuNjc0MSA3LjI2NTEzIDExLjY3NDEgNi42Njg0MkMxMS42NzQxIDYuMTkxMDYgMTEuNTI0OSA1LjgxODExIDExLjIyNjUgNS41NDk1OUMxMC45MjgyIDUuMjcxMTMgMTAuNDU1OCA1LjEzMTkgOS44MDkzNiA1LjEzMTlIOC4xMDg3NEw3LjQ5NzExIDguNTkyODFaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="io.camunda:http-json:1" retries="3" />
+        <zeebe:ioMapping>
+          <zeebe:input source="oauth-client-credentials-flow" target="authentication.type" />
+          <zeebe:input source="https://api.petfinder.com/v2/oauth2/token" target="authentication.oauthTokenEndpoint" />
+          <zeebe:input source="{{secrets.PETFINDER_API_KEY}}" target="authentication.clientId" />
+          <zeebe:input source="{{secrets.PETFINDER_SECRETS}}" target="authentication.clientSecret" />
+          <zeebe:input source="basicAuthHeader" target="authentication.clientAuthentication" />
+          <zeebe:input source="GET" target="method" />
+          <zeebe:input source="https://api.petfinder.com/v2/animals" target="url" />
+          <zeebe:input source="={&#10;  type: preferences.type,&#10;  gender: preferences.gender,&#10;  age: preferences.age,&#10;  size: preferences.size&#10;}" target="queryParameters" />
+          <zeebe:input source="=false" target="storeResponse" />
+          <zeebe:input source="=20" target="connectionTimeoutInSeconds" />
+          <zeebe:input source="=20" target="readTimeoutInSeconds" />
+          <zeebe:input source="=true" target="ignoreNullValues" />
+        </zeebe:ioMapping>
+        <zeebe:taskHeaders>
+          <zeebe:header key="resultExpression" value="={ animals : response.body.animals }" />
+          <zeebe:header key="retryBackoff" value="PT0S" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1w4eahg</bpmn:incoming>
+      <bpmn:outgoing>Flow_1bb76du</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_1m63vtb">
+      <bpmn:incoming>Flow_1bb76du</bpmn:incoming>
+      <bpmn:incoming>Flow_0roub1r</bpmn:incoming>
+      <bpmn:outgoing>Flow_15h6bv5</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Activity_1duannr" name="Choose animal for adoption">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formId="Form_AnimalChoice" />
+        <zeebe:ioMapping>
+          <zeebe:input source="=for animal in animals return context put(animal, &#34;selected&#34;, false)" target="selectableAnimals" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_15h6bv5</bpmn:incoming>
+      <bpmn:outgoing>Flow_0cvjuug</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="Activity_1iqmug3" name="adopt animal" zeebe:modelerTemplate="io.camunda.connectors.HttpJson.v2" zeebe:modelerTemplateVersion="10" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE3LjAzMzUgOC45OTk5N0MxNy4wMzM1IDEzLjQ0NzUgMTMuNDI4MSAxNy4wNTI5IDguOTgwNjUgMTcuMDUyOUM0LjUzMzE2IDE3LjA1MjkgMC45Mjc3NjUgMTMuNDQ3NSAwLjkyNzc2NSA4Ljk5OTk3QzAuOTI3NzY1IDQuNTUyNDggNC41MzMxNiAwLjk0NzA4MyA4Ljk4MDY1IDAuOTQ3MDgzQzEzLjQyODEgMC45NDcwODMgMTcuMDMzNSA0LjU1MjQ4IDE3LjAzMzUgOC45OTk5N1oiIGZpbGw9IiM1MDU1NjIiLz4KPHBhdGggZD0iTTQuOTMxMjYgMTQuMTU3MUw2Ljc4MTA2IDMuNzE0NzFIMTAuMTM3NUMxMS4xOTE3IDMuNzE0NzEgMTEuOTgyNCAzLjk4MzIzIDEyLjUwOTUgNC41MjAyN0MxMy4wNDY1IDUuMDQ3MzYgMTMuMzE1IDUuNzMzNTggMTMuMzE1IDYuNTc4OTJDMTMuMzE1IDcuNDQ0MTQgMTMuMDcxNCA4LjE1NTIyIDEyLjU4NDEgOC43MTIxNUMxMi4xMDY3IDkuMjU5MTMgMTEuNDU1MyA5LjYzNzA1IDEwLjYyOTggOS44NDU5TDEyLjA2MTkgMTQuMTU3MUgxMC4zMzE1TDkuMDMzNjQgMTAuMDI0OUg3LjI0MzUxTDYuNTEyNTQgMTQuMTU3MUg0LjkzMTI2Wk03LjQ5NzExIDguNTkyODFIOS4yNDI0OEM5Ljk5ODMyIDguNTkyODEgMTAuNTkwMSA4LjQyMzc0IDExLjAxNzcgOC4wODU2MUMxMS40NTUzIDcuNzM3NTMgMTEuNjc0MSA3LjI2NTEzIDExLjY3NDEgNi42Njg0MkMxMS42NzQxIDYuMTkxMDYgMTEuNTI0OSA1LjgxODExIDExLjIyNjUgNS41NDk1OUMxMC45MjgyIDUuMjcxMTMgMTAuNDU1OCA1LjEzMTkgOS44MDkzNiA1LjEzMTlIOC4xMDg3NEw3LjQ5NzExIDguNTkyODFaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="io.camunda:http-json:1" retries="3" />
+        <zeebe:ioMapping>
+          <zeebe:input source="noAuth" target="authentication.type" />
+          <zeebe:input source="GET" target="method" />
+          <zeebe:input source="=if round half up(random number(), 0) = 1 then &#34;https://dummyjson.com/http/404/The selected animal is not available for adoption&#34; else &#34;https://dummyjson.com/http/200/success&#34;" target="url" />
+          <zeebe:input source="=false" target="storeResponse" />
+          <zeebe:input source="=20" target="connectionTimeoutInSeconds" />
+          <zeebe:input source="=20" target="readTimeoutInSeconds" />
+          <zeebe:input source="=false" target="ignoreNullValues" />
+        </zeebe:ioMapping>
+        <zeebe:taskHeaders>
+          <zeebe:header key="errorExpression" value="=if matches(error.code, &#34;404&#34;) then bpmnError(&#34;UNAVAILABLE_ANIMAL&#34;, error.variables.response.body.message) else null" />
+          <zeebe:header key="retryBackoff" value="PT0S" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0cvjuug</bpmn:incoming>
+      <bpmn:outgoing>Flow_10ersut</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_0v4iw01" name="adoption request completed">
+      <bpmn:incoming>Flow_10ersut</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:association id="Association_0ln9okm" associationDirection="None" sourceRef="StartEvent_1" targetRef="TextAnnotation_0yldceh" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_09uw0i0">
+      <bpmndi:BPMNShape id="Participant_130ym0g_di" bpmnElement="Participant" isHorizontal="true">
+        <dc:Bounds x="-81" y="-2" width="1011" height="292" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="62" y="100" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="39" y="143" width="83" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1bkdnnd_di" bpmnElement="Activity_1szgjrr">
+        <dc:Bounds x="190" y="78" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1m63vtb_di" bpmnElement="Gateway_1m63vtb" isMarkerVisible="true">
+        <dc:Bounds x="355" y="93" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1sjtjqo_di" bpmnElement="Activity_1duannr">
+        <dc:Bounds x="470" y="78" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_00nkse8_di" bpmnElement="Activity_1iqmug3">
+        <dc:Bounds x="650" y="78" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0v4iw01_di" bpmnElement="Event_0v4iw01">
+        <dc:Bounds x="842" y="100" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="819" y="143" width="83" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_12yizcy_di" bpmnElement="Event_12yizcy">
+        <dc:Bounds x="682" y="140" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1w4eahg_di" bpmnElement="Flow_1w4eahg">
+        <di:waypoint x="98" y="118" />
+        <di:waypoint x="190" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0roub1r_di" bpmnElement="Flow_0roub1r">
+        <di:waypoint x="700" y="176" />
+        <di:waypoint x="700" y="230" />
+        <di:waypoint x="380" y="230" />
+        <di:waypoint x="380" y="143" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="519" y="246" width="62" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1bb76du_di" bpmnElement="Flow_1bb76du">
+        <di:waypoint x="290" y="118" />
+        <di:waypoint x="355" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15h6bv5_di" bpmnElement="Flow_15h6bv5">
+        <di:waypoint x="405" y="118" />
+        <di:waypoint x="470" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0cvjuug_di" bpmnElement="Flow_0cvjuug">
+        <di:waypoint x="570" y="118" />
+        <di:waypoint x="650" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10ersut_di" bpmnElement="Flow_10ersut">
+        <di:waypoint x="750" y="118" />
+        <di:waypoint x="842" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0ln9okm_di" bpmnElement="Association_0ln9okm">
+        <di:waypoint x="69" y="104" />
+        <di:waypoint x="49" y="75" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_0yldceh_di" bpmnElement="TextAnnotation_0yldceh">
+        <dc:Bounds x="-30" y="20" width="100" height="55" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_09mb3xf_di" bpmnElement="TextAnnotation_09mb3xf">
+        <dc:Bounds x="750" y="193" width="100" height="55" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_0f0rt3r_di" bpmnElement="Association_0f0rt3r">
+        <di:waypoint x="716" y="166" />
+        <di:waypoint x="769" y="193" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

@@ -1,0 +1,84 @@
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.6.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "f2b6433"
+  },
+  "schemaVersion": 18,
+  "id": "Form_AnimalChoice",
+  "components": [
+    {
+      "text": "## Choose Your Future Pet 🏡",
+      "type": "text",
+      "layout": {
+        "row": "Row_0vsbtno",
+        "columns": null
+      },
+      "id": "Field_1vz6o3e"
+    },
+    {
+      "text": "### Adopt Now ❤️",
+      "type": "text",
+      "layout": {
+        "row": "Row_09lg4y5",
+        "columns": null
+      },
+      "id": "Field_1il6imy"
+    },
+    {
+      "content": "<span style=\"color: red; font-weight: bold;\">⛔ Oops, sorry! The selected animal is no longer available for adoption. Please choose another one</span>",
+      "type": "html",
+      "layout": {
+        "row": "Row_14u8rek",
+        "columns": null
+      },
+      "id": "Field_0ouo5q1",
+      "conditional": {
+        "hide": "=unavailable = null"
+      }
+    },
+    {
+      "label": "",
+      "components": [
+        {
+          "label": "",
+          "type": "checkbox",
+          "layout": {
+            "row": "Row_01fclkd",
+            "columns": 2
+          },
+          "id": "Field_1t3856w",
+          "key": "selected",
+          "conditional": {
+            "hide": "=any(selectableAnimals.selected)"
+          }
+        },
+        {
+          "content": "<div style=\"\n  width: 100%;\n  border-radius: 10px;\n  overflow: hidden;\n  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);\n  font-family: Arial, sans-serif;\n  border: 1px solid #ddd;\n  background-color: #fff;\n\">\n  <!-- Animal Image -->\n  <img src=\"{{if count(this.photos) = 0 then \"https://cdn.prod.website-files.com/6600e1eab90de089c2d9c9cd/663fc2a1da49d30b9a44e793_08t53Z_u_1IlN_1024.webp\" else this.photos[1].small}}\" alt=\"Animal Image\" style=\"\n    width: 100%;\n    height: 300px;\n    object-fit: cover;\n    object-position: center;\n  \">\n\n  <!-- Animal Info -->\n  <div style=\"padding: 15px;\">\n    <h3 style=\"margin: 0; font-size: 18px; color: #333;\">{{this.name}}</h3>\n    <p style=\"margin: 5px 0; color: #666; font-size: 14px;\">\n      🐾 <strong>Type:</strong> {{this.type}} <br>\n      ♂️ <strong>Gender:</strong> {{this.gender}} <br>\n      📏 <strong>Size:</strong> {{this.size}} <br>\n      🎂 <strong>Age:</strong> {{this.age}} <br>\n      📍 <strong>Location:</strong> {{this.contact.address.city}}\n{{this.contact.address.state}}{{this.contact.address.postcode}}{{this.contact.address.country}}\n    </p>\n  </div>\n</div>",
+          "type": "html",
+          "layout": {
+            "row": "Row_01fclkd",
+            "columns": null
+          },
+          "id": "Field_08zgtrx"
+        }
+      ],
+      "showOutline": false,
+      "isRepeating": true,
+      "allowAddRemove": false,
+      "defaultRepetitions": null,
+      "type": "dynamiclist",
+      "layout": {
+        "row": "Row_0wt90yo",
+        "columns": null
+      },
+      "id": "Field_0x1jtl6",
+      "path": "selectableAnimals",
+      "disableCollapse": true,
+      "nonCollapsedItems": 19,
+      "verticalAlignment": "center"
+    }
+  ],
+  "type": "default"
+}
