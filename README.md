@@ -40,12 +40,6 @@ After startup, the following Camunda services will be available:
 - Tasklist: http://localhost:8082
 - Zeebe Gateway: localhost:26500
 
-## ✍️ Branch: rest-connector
-This branch includes all the resources related to the article “🚀Automating REST API Calls with Camunda 8: Everything You Need to Know”:
-- BPMN models
-- Connector environment configuration (input mappings, headers, etc.)
-- Example payloads and responses
-
 ## 🎯 Purpose
 This repository serves as:
 - A central space for sharing Camunda 8 article resources
